@@ -1,0 +1,65 @@
+<template>
+  <div id="app">
+   <h1>My Movie App!</h1>
+   <!-- Calling variable using {{}} -->
+   <p>{{message}}</p>
+   <input type="text" name="search" v-model="searchTerm" placeholder="Enter movie title">
+   <p></p>
+   <button v-on:click="buttonPressed">Search</button>
+   </div>
+   
+   <div>
+     <h2>Results</h2>
+     <div id="section">
+      <div>
+        <img src="">
+        <h3>Tenet</h3>
+        <p>2020 - Film</p>
+      </div>
+      <div>
+        <img src="">
+        <h3>Tenet</h3>
+        <p>2020 - Film</p>
+      </div>
+      <div>
+        <img src="">
+        <h3>Tenet</h3>
+        <p>2020 - Film</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</template>
+
+<script>
+
+export default {
+  name: 'App',
+  data () {
+    return {
+      // Declaring a variable
+      message:"Hi, everyone! =)",
+      title:"",
+      year:"",
+      imdbID:"",
+      Type:"",
+      search:"",
+      Poster:"",
+      link:"https://www.google.com"
+
+    }
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
