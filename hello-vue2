@@ -1,0 +1,48 @@
+<template>
+  <div id="app">
+    <h1>Hello World!</h1>
+    <!-- Calling variable using {{}} -->
+    <p>{{message}}</p>
+    <p>My name is <span v-if="gender == 'male'">Mr </span><span v-else>Ms </span>{{name}}. My email address is {{email}}. You can contact me at {{phone}} </p>
+    <p>Give me a thumbs up!!</p>
+    <p>Currently I have {{like}} likes from my fan!</p>
+    <p><a v-bind:href="link">Visit Me!</a></p>
+    <button v-on:click="like+=1">Give me a like</button>
+    <ul>
+      <li v-for="hobby in hobbies" :key="hobby">{{hobby}}</li>
+    </ul>
+    <input v-mmodel="guest" type="text" placeholder="What is your name?">
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'App',
+  data() {
+    return {
+  // Declaring a variable 
+  message: "Hello Vue!",
+  name: "Noor Hezlin",
+  email: "noor.hezlin@gmail.com",
+  phone: "01234567890",
+  gender: "Female",
+  like:0,
+  link:"https://www.google.com",
+  hobbies: ["coding","visiting new places","watching movies"],
+  guest: "",
+}
+}  
+}
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
