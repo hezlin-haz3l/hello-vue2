@@ -1,32 +1,35 @@
 <template>
   <div id="app" class="container">
-    <div>
-      <h1>Weather Website</h1>
 
-      <div id="search" class="card px-5 py-5">
-        <input type="text" name="search" placeholder="Please enter location" class="form-control mb-3" v-model="searchedCity">
-        <button class="btn btn-primary" v-on:click="searchWeather">Search</button>
-      </div>
-    </div>
+    <h1>Weather Website</h1>
 
-    <div id="weather">
-      <h2>Weather Info</h2>
-      <h3>{{city}}</h3>
-      <table class="table table-bordered table-striped">
-        <tr>
-          <th>Date/Time</th>
-          <th>Weather</th>
-          <th>Temperature</th>
-          <th>Icon</th>
-        </tr>
-        <tr v-for="weather in weathers" :key="weather.dt" v-on:click="selectWeather(weather)">
-          <td>{{new Date(weather.dt*1000)}}</td>
-          <td>{{weather.weather[0].main}}</td>
-          <td>{{(weather.temp.day - 273.15).toFixed(2)}} C</td>
-          <td><img v-bind:src="`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`"></td>
-        </tr>
-      </table>        
+    <div id="search" class="card px-5 py-5">
+      <input type="text" name="search" placeholder="Please enter location" class="form-control mb-3" v-model="searchedCity">
+      <button class="btn btn-primary" v-on:click="searchWeather">Search</button>
     </div>
+  
+
+  <div id="weather" v-if="weathers.length !=0">
+    <h2>Weather Info</h2>
+    <h3>{{city}}</h3>
+    <table class="table table-bordered table-striped">
+      <tr>
+        <th>Date/Time</th>
+        <th>Weather</th>
+        <th>Temperature</th>
+        <th>Icon</th>
+      </tr>
+      <tr v-for="weather in weathers" :key="weather.dt" v-on:click="selectWeather(weather)">
+        <td>{{new Date(weather.dt*1000)}}</td>
+        <td>{{weather.weather[0].main}}</td>
+        <td>{{(weather.temp.day - 273.15).toFixed(2)}} C</td>
+        <td><img v-bind:src="`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`"></td>
+      </tr>
+    </table>        
+  </div>
+  <div id="detail" class="card px-5 py-5" v-if="selectedWeather">
+    <p><img v-bind:src="`https://openweathermap.org/img/wn/${selectedWeather.weather[0].icon}@2x.png`"></p>
+    <p>{{new Date(selectedWeather.dt*1000)}}</p>
   </div>
 </div>
 </template>
@@ -45,9 +48,10 @@ export default {
   },
 
   methods: {
-    searchWeather: function(weather){
+    selectWeather: function(weather){
       this.selectedWeather = weather;
-    }
+    },
+
     searchWeather: function(){
       fetch('https://api.openweathermap.org/data/2.5/forecast/daily?q='+this.searchedCity+ '&appid=9fd7a449d055dba26a982a3220f32aa2')
       .then(response => response.json())
@@ -57,7 +61,7 @@ export default {
         this.city = data.city.name
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error('Error', error);
       });
     }
   }
